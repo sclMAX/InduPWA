@@ -7,6 +7,20 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://beta.ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <ion-list>
+    <ion-item>
+      <ion-label possition="floating">Email</ion-label>
+      <ion-input #email type="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label possition="floating">Password</ion-label>
+      <ion-input #password type="password" required></ion-input>
+    </ion-item>
+    <br>
+    <br>
+    <ion-item>
+     <ion-button expand="block" (click)="login(email.value, password.value)">Login</ion-button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
