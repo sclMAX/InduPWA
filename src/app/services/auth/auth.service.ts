@@ -9,11 +9,12 @@ import {
 import { AngularFireAuth } from '@angular/fire/auth';
 import { reject } from 'q';
 import { throws } from 'assert';
+import { NavController } from '@ionic/angular';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private currentUser: Observable<UserInterface>;
-  constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth) {
+  constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth, private navCtrl: NavController) {
     this.user = this.afAuth.authState.pipe(switchMap(cred => {
       if (cred) {
         return this.getUser(cred.uid);
@@ -27,13 +28,20 @@ export class AuthService {
 
   set user(user: Observable<UserInterface>) { this.currentUser = user; }
 
-  login(email: string, password: string): Promise<UserInterface | void> {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password).then((cred) => this.getUser(cred.user.uid).pipe(take(1),map(user=>{      
+  login(cred:{email: string, password: string}): Promise<UserInterface | void> {
+    return this.afAuth.auth.signInWithEmailAndPassword(cred.email, cred.password).then((cred) => this.getUser(cred.user.uid).pipe(take(1),map(user=>{      
       if(!user){
+        this.logOut();
         throw ('not user!');
       }
       return user;
     })).toPromise());
+  }
+
+  logOut(){
+    return this.afAuth.auth.signOut().then(()=>{
+      this.navCtrl.navigateRoot('login');
+    });
   }
 
   updateUser(user: UserInterface) {
