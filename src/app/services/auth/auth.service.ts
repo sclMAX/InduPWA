@@ -41,6 +41,7 @@ export class AuthService {
   logOut(){
     return this.afAuth.auth.signOut().then(()=>{
       this.navCtrl.navigateRoot('login');
+      return;
     });
   }
 

@@ -10,4 +10,8 @@ export class HomePage {
 
   constructor(private authService: AuthService){}
 
+  logOut(){
+    this.authService.logOut().then(console.log).catch(console.error);
+  }
+
 }
