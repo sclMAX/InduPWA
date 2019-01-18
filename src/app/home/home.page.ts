@@ -1,5 +1,6 @@
-import { AuthService } from './../services/auth/auth.service';
-import { Component } from '@angular/core';
+import {AuthService} from './../services/auth/auth.service';
+import {Component} from '@angular/core';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  constructor(private authService: AuthService,
+              private navCtrl: NavController) {}
 
-  constructor(private authService: AuthService){}
-
-  logOut(){
-    this.authService.logOut().then(console.log).catch(console.error);
+  logOut() {
+    this.authService.logOut()
+        .then(() => this.navCtrl.navigateRoot('login'))
+        .catch(console.error);
   }
-
 }
