@@ -1,3 +1,4 @@
+import { AdminGuard } from './services/guards/admin.guard';
 import {CoreModule} from './core.module';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import {LoginGuard} from './services/guards/login.guard';
   providers: [
     LoginGuard,
     AuthGuard,
+    AdminGuard,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
   ],
   bootstrap: [AppComponent]

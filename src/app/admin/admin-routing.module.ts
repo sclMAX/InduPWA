@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'usuarios',
     loadChildren: './usuarios/usuarios/usuarios.module#UsuariosPageModule',
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AdminGuard]
   },
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
 
